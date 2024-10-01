@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { router } from "expo-router";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,6 +10,11 @@ import CustomButton from "@/components/custom-button";
 export default function Welcome() {
   const swiperRef = useRef<Swiper>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const isLastSlide = useMemo(
+    () => activeIndex === onboarding.length - 1,
+    [activeIndex],
+  );
 
   return (
     <SafeAreaView className="h-full items-center justify-between bg-white">
@@ -48,7 +53,15 @@ export default function Welcome() {
         ))}
       </Swiper>
 
-      <CustomButton title="Next" styles="mt-10 w-11/12" />
+      <CustomButton
+        title={isLastSlide ? "Get Started" : "Next"}
+        onPress={() =>
+          isLastSlide
+            ? router.replace("/(auth)/sign-up")
+            : swiperRef.current?.scrollBy(1)
+        }
+        className="mt-10 w-11/12"
+      />
     </SafeAreaView>
   );
 }

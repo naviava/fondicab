@@ -6,7 +6,6 @@ export default function CustomButton({
   title,
   IconLeft,
   IconRight,
-  styles,
   bgVariant = "primary",
   textVariant = "default",
   ...props
@@ -15,10 +14,10 @@ export default function CustomButton({
     <TouchableOpacity
       onPress={props.onPress}
       className={cn(
-        "w-full flex-row items-center justify-center rounded-full shadow-md",
+        "w-full flex-row items-center justify-center rounded-full p-3 shadow-md shadow-neutral-400/70",
         getBgVariantStyle(bgVariant),
-        styles,
       )}
+      {...props}
     >
       {IconLeft && <IconLeft />}
       <Text
