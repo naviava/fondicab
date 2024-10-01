@@ -1,28 +1,22 @@
 import { Stack } from "expo-router";
 
-export default function TabsLayout() {
+export default function AuthLayout() {
   return (
     <Stack>
       <Stack.Screen
-        name="home"
+        name="welcome"
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="chat"
+        name="sign-up"
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="profile"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="rides"
+        name="sign-in"
         options={{
           headerShown: false,
         }}
