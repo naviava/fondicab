@@ -10,7 +10,7 @@ NativeWindStyleSheet.setOutput({
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+export default function MainLayout() {
   const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
     "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
