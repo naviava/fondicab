@@ -4,13 +4,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Jakarta: ["Jakarta-Regular", "sans-serif"],
-        JakartaBold: ["Jakarta-Bold", "sans-serif"],
-        JakartaExtraBold: ["Jakarta-ExtraBold", "sans-serif"],
-        JakartaExtraLight: ["Jakarta-ExtraLight", "sans-serif"],
-        JakartaLight: ["Jakarta-Light", "sans-serif"],
-        JakartaMedium: ["Jakarta-Medium", "sans-serif"],
-        JakartaSemiBold: ["Jakarta-SemiBold", "sans-serif"],
+        jregular: ["Jakarta-Regular", "sans-serif"],
+        jbold: ["Jakarta-Bold", "sans-serif"],
+        jextrabold: ["Jakarta-ExtraBold", "sans-serif"],
+        jextralight: ["Jakarta-ExtraLight", "sans-serif"],
+        jlight: ["Jakarta-Light", "sans-serif"],
+        jmedium: ["Jakarta-Medium", "sans-serif"],
+        jsemibold: ["Jakarta-SemiBold", "sans-serif"],
       },
       colors: {
         primary: {
