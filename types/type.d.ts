@@ -59,6 +59,7 @@ declare interface ButtonProps extends TouchableOpacityProps {
   textVariant?: "primary" | "default" | "secondary" | "danger" | "success";
   IconLeft?: React.ComponentType<any>;
   IconRight?: React.ComponentType<any>;
+  styles?: string;
 }
 
 declare interface GoogleInputProps {
@@ -85,7 +86,7 @@ declare interface InputFieldProps extends TextInputProps {
   containerStyle?: string;
   inputStyle?: string;
   iconStyle?: string;
-  className?: string;
+  styles?: string;
 }
 
 declare interface PaymentProps {

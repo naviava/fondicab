@@ -4,8 +4,8 @@ import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import Swiper from "react-native-swiper";
-import { onboarding } from "@/constants";
-import CustomButton from "@/components/custom-button";
+import { onboarding } from "~/constants";
+import CustomButton from "~/components/custom-button";
 
 export default function Welcome() {
   const swiperRef = useRef<Swiper>(null);
