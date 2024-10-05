@@ -1,8 +1,11 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 
+import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import { NativeWindStyleSheet } from "nativewind";
 import { useFonts } from "expo-font";
+
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
 NativeWindStyleSheet.setOutput({
   default: "native",
@@ -11,6 +14,10 @@ NativeWindStyleSheet.setOutput({
 SplashScreen.preventAutoHideAsync();
 
 export default function MainLayout() {
+  if (!publishableKey) {
+    throw new Error("Publishable Key Missing!");
+  }
+
   const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
     "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
@@ -28,26 +35,30 @@ export default function MainLayout() {
   if (!loaded) return null;
 
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="(auth)"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="(root)"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <ClerkProvider publishableKey={publishableKey}>
+      <ClerkLoaded>
+        <Stack>
+          <Stack.Screen
+            name="index"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="(auth)"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="(root)"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ClerkLoaded>
+    </ClerkProvider>
   );
 }
