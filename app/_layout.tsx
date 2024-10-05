@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import { NativeWindStyleSheet } from "nativewind";
 import { useFonts } from "expo-font";
+import { tokenCache } from "~/lib/auth";
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -35,7 +36,7 @@ export default function MainLayout() {
   if (!loaded) return null;
 
   return (
-    <ClerkProvider publishableKey={publishableKey}>
+    <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
       <ClerkLoaded>
         <Stack>
           <Stack.Screen

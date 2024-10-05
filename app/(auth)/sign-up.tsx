@@ -191,7 +191,10 @@ export default function SignUp() {
               </Text>
               <CustomButton
                 title="Start browsing"
-                onPress={() => router.replace("/(root)/(tabs)/home")}
+                onPress={() => {
+                  setVerification((prev) => ({ ...prev, state: "default" }));
+                  router.push("/(root)/(tabs)/home");
+                }}
                 styles="mt-5"
               />
             </View>
