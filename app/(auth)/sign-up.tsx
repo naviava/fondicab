@@ -10,6 +10,7 @@ import InputField from "~/components/input-field";
 import OAuth from "~/components/oauth";
 
 import { icons, images } from "~/constants";
+import { fetchAPI } from "~/lib/fetch";
 
 export default function SignUp() {
   const router = useRouter();
@@ -58,6 +59,14 @@ export default function SignUp() {
 
       if (completeSignUp.status === "complete") {
         // TODO: Create a db user.
+        await fetchAPI("/(api)/user", {
+          method: "POST",
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            clerkId: completeSignUp.createdUserId,
+          }),
+        });
 
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification((prev) => ({ ...prev, state: "success" }));
@@ -75,7 +84,7 @@ export default function SignUp() {
         error: err.errors[0].longMessage,
       }));
     }
-  }, [verification.code, isLoaded, setActive, signUp]);
+  }, [verification.code, isLoaded, setActive, signUp, form.email, form.name]);
 
   return (
     <ScrollView className="flex-1 bg-white">
