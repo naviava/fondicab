@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     INSERT INTO users (
       name,
       email,
-      clerkId
+      clerk_id
     )
     VALUES (
       ${name},
