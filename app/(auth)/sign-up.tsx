@@ -154,6 +154,7 @@ export default function SignUp() {
             setVerification((prev) => ({ ...prev, state: "success" }))
           }
         >
+          {/* @ts-ignore */}
           <>
             <View className="min-h-[300px] rounded-2xl bg-white px-7 py-9">
               <Text className="mb-2 font-jextrabold text-2xl">
