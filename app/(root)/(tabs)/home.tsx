@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -7,12 +8,16 @@ import {
   View,
 } from "react-native";
 
-import { useUser } from "@clerk/clerk-expo";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useUser } from "@clerk/clerk-expo";
+import * as Location from "expo-location";
 
+import { GoogleTextInput } from "~/components/google-text-input";
 import { RideCard } from "~/components/ride-card";
+import { Map } from "~/components/map";
+
 import { icons, images } from "~/constants";
-import { useCallback } from "react";
+import { useLocationStore } from "~/store";
 
 const recentRides = [
   {
@@ -124,8 +129,33 @@ const recentRides = [
 export default function HomeScreen() {
   const { user } = useUser();
   const isLoading = false;
+  const [hasPermissions, setHasPermissions] = useState(false);
+  const { setUserLocation, setDestinationLocation } = useLocationStore();
+
+  const handleDestinationPress = useCallback(() => {}, []);
 
   const handleSignOut = useCallback(() => {}, []);
+
+  useEffect(() => {
+    async function requestLocation() {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") return setHasPermissions(false);
+
+      let location = await Location.getCurrentPositionAsync();
+      const address = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        address: `${address[0].name}, ${address[0].region}`,
+      });
+    }
+
+    requestLocation();
+  }, [setUserLocation]);
 
   return (
     <SafeAreaView className="bg-general-500">
@@ -172,7 +202,20 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
 
-            {/* TODO: Google Text Input component */}
+            <GoogleTextInput
+              icon={icons.search}
+              containerStyle="bg-white shadow-md shadow-neutral-300"
+              handlePress={handleDestinationPress}
+            />
+
+            <Text className="mb-3 mt-5 font-jbold text-xl">
+              Your Current Location
+            </Text>
+            <View className="h-[300px] flex-row items-center bg-transparent">
+              <Map />
+            </View>
+
+            <Text className="mb-3 mt-5 font-jbold text-xl">Recent Rides</Text>
           </>
         )}
         contentContainerStyle={{

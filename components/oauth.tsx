@@ -14,7 +14,7 @@ export default function OAuth() {
         <View className="h-[1px] flex-1 bg-general-100" />
       </View>
       <CustomButton
-        title="Sign in with Googleee"
+        title="Sign in with Google"
         styles="mt-5 w-full shadow-none"
         IconLeft={() => (
           <Image
