@@ -1,10 +1,18 @@
-import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
-import { Link } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import { RideCard } from "~/components/ride-card";
-import { images } from "~/constants";
+import { icons, images } from "~/constants";
+import { useCallback } from "react";
 
 const recentRides = [
   {
@@ -117,7 +125,7 @@ export default function HomeScreen() {
   const { user } = useUser();
   const isLoading = false;
 
-  console.log(user);
+  const handleSignOut = useCallback(() => {}, []);
 
   return (
     <SafeAreaView className="bg-general-500">
@@ -147,11 +155,24 @@ export default function HomeScreen() {
           // @ts-ignore
           <>
             <View className="my-5 flex-row items-center justify-between">
-              <Text>
+              <Text
+                className="max-w-[95%] font-jextrabold text-2xl capitalize"
+                numberOfLines={1}
+              >
                 Welcome{" "}
-                {user?.firstName || user?.emailAddresses[0].emailAddress} 👋
+                {user?.firstName ||
+                  user?.emailAddresses[0].emailAddress.split("@")[0]}{" "}
+                👋
               </Text>
+              <TouchableOpacity
+                onPress={handleSignOut}
+                className="h-10 w-10 items-center justify-center rounded-full bg-white"
+              >
+                <Image source={icons.out} className="h-4 w-4 shrink-0" />
+              </TouchableOpacity>
             </View>
+
+            {/* TODO: Google Text Input component */}
           </>
         )}
         contentContainerStyle={{
