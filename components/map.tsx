@@ -1,9 +1,30 @@
 import { useMemo } from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import MapView, { PROVIDER_DEFAULT } from "react-native-maps";
+import { calculateRegion } from "~/lib/map";
+import { useDriverStore } from "~/store/driver";
+import { useLocationStore } from "~/store/location";
 
 export function Map() {
-  const region = useMemo(() => ({}), []);
+  const {
+    userLongitude,
+    userLatitude,
+    destinationLongitude,
+    destinationLatitude,
+  } = useLocationStore((state) => state);
+
+  const { selectedDriver, setDrivers } = useDriverStore((state) => state);
+
+  const region = useMemo(
+    () =>
+      calculateRegion({
+        userLatitude,
+        userLongitude,
+        destinationLatitude,
+        destinationLongitude,
+      }),
+    [userLatitude, userLongitude, destinationLatitude, destinationLongitude],
+  );
 
   return (
     <MapView
@@ -11,6 +32,7 @@ export function Map() {
       tintColor="black"
       mapType="mutedStandard"
       showsPointsOfInterest={false}
+      initialRegion={region}
       showsUserLocation={true}
       userInterfaceStyle="light"
       className="h-full w-full rounded-2xl"

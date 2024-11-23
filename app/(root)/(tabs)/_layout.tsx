@@ -82,13 +82,13 @@ function TabIcon({
     <View
       className={cn(
         "flex-row items-center justify-center rounded-full",
-        focused ? "bg-general-300" : "",
+        focused && "bg-general-300",
       )}
     >
       <View
         className={cn(
           "h-12 w-12 items-center justify-center rounded-full",
-          focused ? "bg-general-400" : "",
+          focused && "bg-general-400",
         )}
       >
         <Image
